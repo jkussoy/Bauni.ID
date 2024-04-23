@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1068311267513",
+    "project_id": "bauni-id-15ff6",
+    "storage_bucket": "bauni-id-15ff6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1068311267513:android:99f419a2084606d707b368",
+        "android_client_info": {
+          "package_name": "com.bauni"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBc3YtvVrruTVn1yfr8mlxsVd0T6Fj6xs4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
