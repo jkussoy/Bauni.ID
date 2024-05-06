@@ -10,13 +10,15 @@ import {getFirestore} from 'firebase/firestore';
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: 'AIzaSyA6Y4MGAqBUqrYqnSIBAFpoewETuEQ_V30',
-  authDomain: 'bauni-id-15ff6.firebaseapp.com',
-  projectId: 'bauni-id-15ff6',
-  storageBucket: 'bauni-id-15ff6.appspot.com',
-  messagingSenderId: '1068311267513',
-  appId: '1:1068311267513:web:ea8bebca14ab028107b368',
+  apiKey: 'AIzaSyCrD0NAP1Qum_y4YNg35vU8Pl6PkwK2v0Y',
+  authDomain: 'bauniid1.firebaseapp.com',
+  projectId: 'bauniid1',
+  storageBucket: 'bauniid1.appspot.com',
+  messagingSenderId: '825317241990',
+  appId: '1:825317241990:web:974032fd5f22d9bf10cd07',
+  measurementId: 'G-28K268PYD5',
 };
 
 // Initialize Firebase
@@ -25,4 +27,43 @@ const auth = getAuth();
 const database = getFirestore();
 const firestore = getFirestore(app);
 
-export {auth, firestore};
+const createAccount = async user => {
+  try {
+    const {user: createdUser} = await createUserWithEmailAndPassword(
+      auth,
+      user.email,
+      user.password,
+    );
+    console.log('User created:', createdUser);
+    alert('User ' + user.name + ' was created successfully.');
+  } catch (error) {
+    if (error.code === 'auth/email-already-in-use') {
+      console.error('Create account failed: email already in use');
+      alert('The email address is already in use.');
+    } else if (error.code === 'auth/invalid-email') {
+      console.error('Create account failed: invalid email');
+      alert('The email address is invalid.');
+    } else if (error.code === 'auth/weak-password') {
+      console.error('Create account failed: weak password');
+      alert('The password must be at least 6 characters long.');
+    } else {
+      console.error('Create account failed:', error.message);
+      alert('Create account failed.');
+    }
+  }
+};
+
+const login = async (user, successCallback, errorCallback) => {
+  try {
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      user.email,
+      user.password,
+    );
+    const loggedInUser = userCredential.user;
+    successCallback(loggedInUser);
+  } catch (error) {
+    errorCallback(error);
+  }
+};
+export {auth, firestore, createAccount, login};
