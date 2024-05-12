@@ -153,7 +153,7 @@ const SignIn = ({navigation}) => {
         </View>
         <Gap height={59} />
         <View style={styles.buttonsContainer}>
-          <TouchableOpacity style={styles.socialButton} onPress={signInGoogle}>
+          <TouchableOpacity style={styles.socialButton}>
             <Image source={Googlee} style={styles.icon} />
             <Text style={styles.buttonText}>Google</Text>
           </TouchableOpacity>
