@@ -3,24 +3,14 @@ import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {Backgroundd, Drink2, Img2, Img4, SuperMario} from '../../assets/images';
 import {Barcode, LogoWhite, Verif} from '../../assets/icon';
 
-const BookingSuccess3 = ({navigation, route}) => {
-  const {menuItems, total} = route.params;
-  const [currentDate, setCurrentDate] = useState('');
-  const [currentTime, setCurrentTime] = useState('');
+const BookingSuccess = ({navigation, route}) => {
+  const {selectedDate, selectedTime} = route.params;
 
-  useEffect(() => {
-    const date = new Date();
-    const formattedDate = `${date.toLocaleDateString('en-US', {
-      month: 'long',
-      day: '2-digit',
-      year: 'numeric',
-    })}`;
-    const formattedTime = `${date.getHours()}:${
-      (date.getMinutes() < 10 ? '0' : '') + date.getMinutes()
-    } ${date.getHours() >= 12 ? 'PM' : 'AM'}`;
-    setCurrentDate(formattedDate);
-    setCurrentTime(formattedTime);
-  }, []);
+  const today = new Date();
+  const formattedDate = `${today.getDate()}-${
+    today.getMonth() + 1
+  }-${today.getFullYear()}`;
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -39,8 +29,8 @@ const BookingSuccess3 = ({navigation, route}) => {
           <Text style={styles.detailLabel}>Payment ID</Text>
         </View>
         <View style={styles.bookingDetailsContainer}>
-          <Text style={styles.detailValue}>{currentDate}</Text>
-          <Text style={styles.detailValue}>AWSKV</Text>
+          <Text style={styles.detailValue}>{formattedDate}</Text>
+          <Text style={styles.detailValue}>SHCH7</Text>
         </View>
       </View>
       <View style={styles.orderSummaryContainer}>
@@ -57,11 +47,11 @@ const BookingSuccess3 = ({navigation, route}) => {
             </Text>
             <View style={styles.date}>
               <Text style={styles.textDate}>Date: </Text>
-              <Text style={styles.movieDate}>{currentDate}</Text>
+              <Text style={styles.movieDate}>{selectedDate.dateString}</Text>
             </View>
             <View style={styles.time}>
               <Text style={styles.textTime}>Time: </Text>
-              <Text style={styles.movieTime}>{currentTime}</Text>
+              <Text style={styles.movieTime}>{selectedTime}</Text>
             </View>
             <View style={styles.place}>
               <Text style={styles.textLocation}>Location: </Text>
@@ -184,7 +174,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 13,
     marginBottom: 8,
-    marginLeft: 15,
+    marginLeft: 25,
     marginRight: 110,
     marginTop: -30,
   },
