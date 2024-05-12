@@ -255,4 +255,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BookingSuccess3;
+export default BookingSuccess;
