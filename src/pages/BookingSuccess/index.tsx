@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
-import {Backgroundd, Img2, Img4} from '../../assets/images';
+import {Backgroundd, Drink2, Img2, Img4, SuperMario} from '../../assets/images';
 import {Barcode, LogoWhite, Verif} from '../../assets/icon';
 
 const BookingSuccess = ({navigation, route}) => {
@@ -26,7 +26,7 @@ const BookingSuccess = ({navigation, route}) => {
         </Text>
         <View style={styles.bookingDetailsContainer}>
           <Text style={styles.detailLabel}>Invoice Date</Text>
-          <Text style={styles.detailLabel}>Booking ID</Text>
+          <Text style={styles.detailLabel}>Payment ID</Text>
         </View>
         <View style={styles.bookingDetailsContainer}>
           <Text style={styles.detailValue}>{formattedDate}</Text>
@@ -36,11 +36,14 @@ const BookingSuccess = ({navigation, route}) => {
       <View style={styles.orderSummaryContainer}>
         <Text style={styles.orderSummaryTitle}>Your Order Summary</Text>
         <View style={styles.movieDetailsContainer}>
-          <Image source={Backgroundd} style={styles.moviePoster} />
           <View style={styles.movieDetailsTextContainer}>
-            <Text style={styles.title}>Movie Title</Text>
             <Text style={styles.movieTitle}>
-              Shang-Chi and The Legend of The Ten Rings
+              Order:{' '}
+              {menuItems.map((menuItem, index) => (
+                <Text key={index}>
+                  {menuItem.name} {index !== menuItems.length - 1 ? ', ' : ''}
+                </Text>
+              ))}
             </Text>
             <View style={styles.date}>
               <Text style={styles.textDate}>Date: </Text>
@@ -53,7 +56,7 @@ const BookingSuccess = ({navigation, route}) => {
             <View style={styles.place}>
               <Text style={styles.textLocation}>Location: </Text>
               <Text style={styles.movieLocation}>
-                Cinepoilis Ippen Mala Kutay
+                CGV Cinemas Grand Kawanua
               </Text>
             </View>
           </View>
