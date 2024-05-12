@@ -19,6 +19,7 @@ import {app} from '../../../config/firebase';
 import {Button, Gap, PageHeader} from '../../components';
 import {Background3} from '../../assets/images';
 import {Google, Googlee} from '../../assets/icon';
+
 // import statusCodes along with GoogleSignin
 import {
   GoogleSignin,
@@ -31,36 +32,58 @@ GoogleSignin.configure({
 });
 // Somewhere in your code
 
-const auth = getAuth(app);
 const SignIn = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const onPressLogin = async () => {
-    try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password,
-      );
-      const user = userCredential.user;
-      console.log('Logged in user:', user);
-      navigation.replace('Home');
-    } catch (error) {
-      if (error.code === 'auth/invalid-email') {
-        console.log('Email is not valid');
-        Alert.alert('Error', 'Email format is not valid');
-      } else if (error.code === 'auth/user-not-found') {
-        console.log('User not found');
-        Alert.alert('Error', 'User not found');
-      } else if (error.code === 'auth/wrong-password') {
-        console.log('Wrong password');
-        Alert.alert('Error', 'Wrong password');
-      } else {
-        console.log(error);
-        Alert.alert('Login failure', error.message);
-      }
-    }
+  const auth = getAuth(app);
+  const onSubmit = () => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then(userCredential => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+        navigation.navigate('MyAccount', {uid: user.uid});
+      })
+      .catch(error => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // showMessage({
+        //   message: errorMessage,
+        //   type: 'danger',
+        // });
+      });
   };
+
+  // const auth = getAuth(app);
+  // const SignIn = ({navigation}) => {
+  //   const [email, setEmail] = useState('');
+  //   const [password, setPassword] = useState('');
+  //   const onPressLogin = async () => {
+  //     try {
+  //       const userCredential = await signInWithEmailAndPassword(
+  //         auth,
+  //         email,
+  //         password,
+  //       );
+  //       const user = userCredential.user;
+  //       console.log('Logged in user:', user);
+  //       navigation.replace('Home');
+  //     } catch (error) {
+  //       if (error.code === 'auth/invalid-email') {
+  //         console.log('Email is not valid');
+  //         Alert.alert('Error', 'Email format is not valid');
+  //       } else if (error.code === 'auth/user-not-found') {
+  //         console.log('User not found');
+  //         Alert.alert('Error', 'User not found');
+  //       } else if (error.code === 'auth/wrong-password') {
+  //         console.log('Wrong password');
+  //         Alert.alert('Error', 'Wrong password');
+  //       } else {
+  //         console.log(error);
+  //         Alert.alert('Login failure', error.message);
+  //       }
+  //     }
+  //   };
   const signInGoogle = async () => {
     try {
       await GoogleSignin.hasPlayServices();
@@ -120,7 +143,7 @@ const SignIn = ({navigation}) => {
           <Text style={styles.forgotPasswordText}>Forgot Password ?</Text>
         </TouchableOpacity>
         <View style={styles.button}>
-          <Button label="Login" onPress={onPressLogin} />
+          <Button label="Login" onPress={onSubmit} />
         </View>
         <Gap height={31} />
         <View style={styles.lineContainer}>
