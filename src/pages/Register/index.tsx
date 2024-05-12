@@ -11,26 +11,87 @@ import {Button, Gap, PageHeader, Textinput} from '../../components';
 import {Background3} from '../../assets/images';
 import {createAccount} from '../../../config/firebase';
 import {useNavigation} from '@react-navigation/native';
+import {createUserWithEmailAndPassword, getAuth} from 'firebase/auth';
+import {getDatabase, ref, set} from 'firebase/database';
 
-const Register = () => {
-  const navigation = useNavigation();
+const Register = ({navigation}) => {
+  const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
+  const [dateOfBirth, setDateOfBirth] = useState('');
+  const [gender, setGender] = useState('');
 
-  const onPressRegister = async () => {
-    try {
-      await createAccount({email, password, name});
-      // Jika pendaftaran berhasil, Anda bisa melakukan navigasi ke layar lain atau menampilkan pesan sukses
-      Alert.alert(
-        'Registration successful',
-        'You have successfully registered.',
-      );
-    } catch (error) {
-      // Jika terjadi kesalahan, tampilkan pesan kesalahan
-      Alert.alert('Registration failed', error.message);
-    }
+  const onSubmit = () => {
+    const auth = getAuth();
+    const db = getDatabase();
+
+    createUserWithEmailAndPassword(auth, email, password, dateOfBirth, gender)
+      .then(userCredential => {
+        // Signed up
+        const user = userCredential.user;
+        const dataUser = {
+          uid: user.uid,
+          fullName: fullName,
+          email: email,
+          dateOfBirth: dateOfBirth,
+          gender: gender,
+        };
+        //Insert to database
+        set(ref(db, 'users/' + dataUser.uid), dataUser);
+
+        showMessage({
+          message: 'Pendaftaran user berhasil',
+          type: 'success',
+        });
+        navigation.navigate('SignIn');
+      })
+      .catch(error => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        showMessage({
+          message: errorMessage,
+          type: 'danger',
+        });
+        // ..
+      });
   };
+
+  // const Register = () => {
+  //   const navigation = useNavigation();
+  //   const [email, setEmail] = useState('');
+  //   const [password, setPassword] = useState('');
+  //   const [name, setName] = useState('');
+
+  //   const onPressRegister = async () => {
+  //     const data = {
+  //       name: name,
+  //       email: email,
+  //     };
+  //     const auth = getAuth();
+  //     const db = getDatabase();
+  //     createUserWithEmailAndPassword(auth, email, password)
+  //       .then(userCredential => {
+  //         const user = userCredential.user;
+  //         set(ref(db, 'users/' + user.uid), data);
+  //       })
+  //       .catch(error => {
+  //         // Tangani error di sini, misalnya:
+  //         console.log('Error creating user:', error);
+  //         // Atau tampilkan pesan error kepada pengguna
+  //       });
+  // try {
+  //   await createAccount({email, password, name});
+  //   // Jika pendaftaran berhasil, Anda bisa melakukan navigasi ke layar lain atau menampilkan pesan sukses
+
+  //   Alert.alert(
+  //     'Registration successful',
+  //     'You have successfully registered.',
+  //   );
+  // } catch (error) {
+  //   // Jika terjadi kesalahan, tampilkan pesan kesalahan
+  //   Alert.alert('Registration failed', error.message);
+  // }
+  // };
   return (
     <View style={styles.container}>
       <PageHeader
@@ -49,8 +110,28 @@ const Register = () => {
             style={styles.input}
             placeholder="User Name"
             placeholderTextColor={'white'}
-            value={name}
-            onChangeText={setName}
+            value={fullName}
+            onChangeText={setFullName}
+          />
+          <View>
+            <Text style={styles.textEmail}>Date Of Birth</Text>
+          </View>
+          <TextInput
+            style={styles.input}
+            placeholder="Date Of Birth"
+            placeholderTextColor={'white'}
+            value={dateOfBirth}
+            onChangeText={setDateOfBirth}
+          />
+          <View>
+            <Text style={styles.textEmail}>Gender</Text>
+          </View>
+          <TextInput
+            style={styles.input}
+            placeholder="Gender"
+            placeholderTextColor={'white'}
+            value={gender}
+            onChangeText={setGender}
           />
           <View>
             <Text style={styles.textEmail}>Email</Text>
@@ -76,7 +157,7 @@ const Register = () => {
           />
           <Gap height={21} />
         </View>
-        <TouchableOpacity activeOpacity={0.5} onPress={onPressRegister}>
+        <TouchableOpacity activeOpacity={0.5} onPress={onSubmit}>
           <View style={styles.buttonContainer}>
             <Text style={styles.textStyle}>Register</Text>
           </View>
