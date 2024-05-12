@@ -19,6 +19,7 @@ const firebaseConfig = {
   messagingSenderId: '825317241990',
   appId: '1:825317241990:web:974032fd5f22d9bf10cd07',
   measurementId: 'G-28K268PYD5',
+  databaseURL: 'https://bauniid1-default-rtdb.firebaseio.com/',
 };
 
 // Initialize Firebase

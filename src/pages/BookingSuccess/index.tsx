@@ -3,7 +3,14 @@ import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {Backgroundd, Img2, Img4} from '../../assets/images';
 import {Barcode, LogoWhite, Verif} from '../../assets/icon';
 
-const BookingSuccess = ({navigation}) => {
+const BookingSuccess = ({navigation, route}) => {
+  const {selectedDate, selectedTime} = route.params;
+
+  const today = new Date();
+  const formattedDate = `${today.getDate()}-${
+    today.getMonth() + 1
+  }-${today.getFullYear()}`;
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -22,7 +29,7 @@ const BookingSuccess = ({navigation}) => {
           <Text style={styles.detailLabel}>Booking ID</Text>
         </View>
         <View style={styles.bookingDetailsContainer}>
-          <Text style={styles.detailValue}>May 16th, 2023</Text>
+          <Text style={styles.detailValue}>{formattedDate}</Text>
           <Text style={styles.detailValue}>SHCH7</Text>
         </View>
       </View>
@@ -37,11 +44,11 @@ const BookingSuccess = ({navigation}) => {
             </Text>
             <View style={styles.date}>
               <Text style={styles.textDate}>Date: </Text>
-              <Text style={styles.movieDate}>May 16th, 2023</Text>
+              <Text style={styles.movieDate}>{selectedDate.dateString}</Text>
             </View>
             <View style={styles.time}>
               <Text style={styles.textTime}>Time: </Text>
-              <Text style={styles.movieTime}>21:00 PM</Text>
+              <Text style={styles.movieTime}>{selectedTime}</Text>
             </View>
             <View style={styles.place}>
               <Text style={styles.textLocation}>Location: </Text>
@@ -164,7 +171,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 13,
     marginBottom: 8,
-    marginLeft: 15,
+    marginLeft: 25,
     marginRight: 110,
     marginTop: -30,
   },

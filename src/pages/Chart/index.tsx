@@ -176,7 +176,12 @@ const Chart = ({navigation}) => {
         </View>
         <TouchableOpacity
           style={styles.checkoutButton}
-          onPress={() => navigation.navigate('PaymentMethod3')}>
+          onPress={() =>
+            navigation.navigate('PaymentMethod3', {
+              total: calculateTotal(),
+              menuItems: menuItems,
+            })
+          }>
           <Text style={styles.checkoutButtonText}>Checkout</Text>
         </TouchableOpacity>
       </View>

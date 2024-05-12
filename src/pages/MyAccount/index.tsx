@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {Backgroundd, Img2, Img4} from '../../assets/images';
 import {
@@ -12,8 +12,21 @@ import {
   PersonPurple,
   Verif,
 } from '../../assets/icon';
+import {getDatabase, onValue, ref} from 'firebase/database';
 
-const MyAccount = ({navigation}) => {
+const MyAccount = ({navigation, route}) => {
+  const [user, setUser] = useState({});
+
+  const {uid} = route.params;
+  const db = getDatabase();
+  useEffect(() => {
+    const userRef = ref(db, 'users/' + uid);
+    onValue(userRef, snapshot => {
+      const data = snapshot.val();
+      setUser(data);
+    });
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -24,33 +37,28 @@ const MyAccount = ({navigation}) => {
           <IconProfile style={styles.iconProfile} />
         </View>
         <Text style={styles.title}>Welcome Back</Text>
-        <Text style={styles.subTitle}>Joshua Kussoy</Text>
+        <Text style={styles.subTitle}>{user.fullName} </Text>
       </View>
       <View style={styles.background}>
-        <TouchableOpacity
-          style={styles.ButtonEdit}
-          onPress={() => navigation.navigate('Home')}>
+        <TouchableOpacity style={styles.ButtonEdit}>
           <Text style={styles.textEdit}>Edit Profile</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.ButtonPurchase}
-          onPress={() => navigation.navigate('Home')}>
+        <TouchableOpacity style={styles.ButtonPurchase}>
           <Text style={styles.textPurchase}>Purchase History</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.background}>
         <View style={styles.email}>
-          <Text style={styles.textEmail}>
-            Email {'          '} s22127003@unklab.ac.id
-          </Text>
+          <Text style={styles.textEmail}>Email</Text>
+          <Text style={styles.textEmail2}>{user.email}</Text>
         </View>
         <View style={styles.dob}>
-          <Text style={styles.textDob}>
-            Date of Birth {'      '} 30 Oktober
-          </Text>
+          <Text style={styles.textDob}>Date of Birth</Text>
+          <Text style={styles.textDob2}>{user.dateOfBirth}</Text>
         </View>
         <View style={styles.gender}>
-          <Text style={styles.textGender}>Gender {'          '} Male</Text>
+          <Text style={styles.textGender}>Gender</Text>
+          <Text style={styles.textGender2}>{user.gender}</Text>
         </View>
         <TouchableOpacity
           style={styles.buttonLogOut}
@@ -146,6 +154,7 @@ const styles = StyleSheet.create({
     marginTop: 25,
   },
   email: {
+    flexDirection: 'row',
     color: 'white',
     backgroundColor: '#4D065F85',
     marginLeft: 24,
@@ -157,10 +166,16 @@ const styles = StyleSheet.create({
   },
   textEmail: {
     color: 'white',
-    marginLeft: 10,
-    marginTop: 7,
+    marginLeft: 20,
+    marginVertical: 7,
+  },
+  textEmail2: {
+    color: 'white',
+    marginLeft: 90,
+    marginVertical: 7,
   },
   dob: {
+    flexDirection: 'row',
     color: 'white',
     backgroundColor: '#4D065F85',
     marginTop: 10,
@@ -171,10 +186,16 @@ const styles = StyleSheet.create({
   },
   textDob: {
     color: 'white',
-    marginLeft: 24,
+    marginLeft: 20,
+    marginTop: 7,
+  },
+  textDob2: {
+    color: 'white',
+    marginLeft: 45,
     marginTop: 7,
   },
   gender: {
+    flexDirection: 'row',
     color: 'white',
     backgroundColor: '#4D065F85',
     marginTop: 10,
@@ -185,7 +206,12 @@ const styles = StyleSheet.create({
   },
   textGender: {
     color: 'white',
-    marginLeft: 45,
+    marginLeft: 20,
+    marginTop: 7,
+  },
+  textGender2: {
+    color: 'white',
+    marginLeft: 80,
     marginTop: 7,
   },
   buttonLogOut: {

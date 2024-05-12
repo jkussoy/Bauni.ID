@@ -16,11 +16,11 @@ import {
   SearchLoct,
   Stars1,
 } from '../../assets/icon';
-import {Backgroundd, Img1, Trailer} from '../../assets/images';
+import {Backgroundd, Img1, SuperMario, Trailer} from '../../assets/images';
 import {Button, Textinput} from '../../components';
 import {DarkTheme} from '@react-navigation/native';
 
-const Booking = ({navigation}) => {
+const Booking2 = ({navigation}) => {
   const [selectedTime, setSelectedTime] = useState(null);
   const [selectedDate, setSelectedDate] = useState('');
 
@@ -34,12 +34,12 @@ const Booking = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={Backgroundd} style={styles.backgroundFoto}>
+      <ImageBackground source={SuperMario} style={styles.backgroundFoto}>
         <View style={styles.overlay}>
           <View style={[styles.container2, {flexDirection: 'row'}]}>
             <TouchableOpacity
               style={styles.back}
-              onPress={() => navigation.navigate('DetailMovies')}>
+              onPress={() => navigation.navigate('DetailMovies2')}>
               <Back style={styles.bttnBack} />
             </TouchableOpacity>
           </View>
@@ -375,7 +375,7 @@ const Booking = ({navigation}) => {
             <Text style={styles.total}> $ 85</Text>
             <TouchableOpacity
               style={styles.buy}
-              onPress={() => navigation.navigate('PaymentMethod')}>
+              onPress={() => navigation.navigate('PaymentMethod2')}>
               <Text style={styles.textBuy}>Buy Ticket</Text>
             </TouchableOpacity>
           </View>
@@ -384,7 +384,7 @@ const Booking = ({navigation}) => {
     </View>
   );
 };
-export default Booking;
+export default Booking2;
 
 const styles = StyleSheet.create({
   container: {
