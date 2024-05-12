@@ -4,6 +4,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Image,
 } from 'react-native';
 import React from 'react';
 import {
@@ -17,9 +18,20 @@ import {
   Searchh,
   Stars1,
   Stars2,
+  Stars3,
 } from '../../assets/icon';
 import {Gap, Textinput} from '../../components';
-import {Img1, Img2, Img3, Img4, Img5, Img7, Img8} from '../../assets/images';
+import {
+  Film1,
+  Img1,
+  Img2,
+  Img3,
+  Img31,
+  Img4,
+  Img5,
+  Img7,
+  Img8,
+} from '../../assets/images';
 
 const Home = ({navigation}) => {
   return (
@@ -48,14 +60,20 @@ const Home = ({navigation}) => {
               <Text style={styles.viewAll}>View All</Text>
             </TouchableOpacity>
           </View>
-          <View style={styles.contentWrapper}>
-            <View style={styles.wrapImg1}>
-              <Img1 style={styles.img1} />
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+            <View style={styles.contentWrapper}>
+              <View style={styles.wrapImg1}>
+                <Img1 style={styles.img1} />
+              </View>
+              <View style={styles.wrapImg2}>
+                <Img2 style={styles.img2} />
+              </View>
+              <View style={styles.wrapImg2}>
+                <Image source={Img31} style={styles.moviePoster} />
+              </View>
+              <Gap height={200} />
             </View>
-            <View style={styles.wrapImg2}>
-              <Img2 style={styles.img2} />
-            </View>
-          </View>
+          </ScrollView>
         </View>
         <View style={styles.content2}>
           <View style={styles.wrapText2}>
@@ -64,32 +82,46 @@ const Home = ({navigation}) => {
               <Text style={styles.viewAll2}>View All</Text>
             </TouchableOpacity>
           </View>
-          <View style={styles.contentWrapper}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('DetailMovies')}>
-              <View style={styles.wrapImg3}>
-                <Img4 style={styles.img3} />
-                <View style={styles.title1}>
-                  <Text style={styles.textTitle1}>Shang-Chi</Text>
-                  <View style={styles.stars1}>
-                    <Stars1 />
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+            <View style={styles.contentWrapper}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('DetailMovies')}>
+                <View style={styles.wrapImg3}>
+                  <Img4 style={styles.img3} />
+                  <View style={styles.title1}>
+                    <Text style={styles.textTitle1}>Shang-Chi</Text>
+                    <View style={styles.stars1}>
+                      <Stars1 />
+                    </View>
                   </View>
                 </View>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('DetailMovies2')}>
-              <View style={styles.wrapImg4}>
-                <Img5 style={styles.img4} />
-                <View style={styles.title2}>
-                  <Text style={styles.textTitle2}>Mario Bross</Text>
-                  <View style={styles.stars2}>
-                    <Stars2 />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('DetailMovies2')}>
+                <View style={styles.wrapImg4}>
+                  <Img5 style={styles.img4} />
+                  <View style={styles.title2}>
+                    <Text style={styles.textTitle2}>Mario Bross</Text>
+                    <View style={styles.stars2}>
+                      <Stars2 />
+                    </View>
                   </View>
                 </View>
-              </View>
-            </TouchableOpacity>
-          </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('DetailMovies')}>
+                <View style={styles.wrapImg2}>
+                  <Image source={Film1} style={styles.film1} />
+                  <View style={styles.title1}>
+                    <Text style={styles.textTitle1}>Waktu Maghrib</Text>
+                    <View style={styles.stars1}>
+                      <Stars1 />
+                    </View>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
         </View>
         <View style={styles.content3}>
           <View style={styles.wrapText3}>
@@ -100,12 +132,14 @@ const Home = ({navigation}) => {
             </TouchableOpacity>
           </View>
           <View style={styles.contentWrapper}>
-            <View style={styles.wrapImg5}>
+            <TouchableOpacity
+              style={styles.wrapImg5}
+              onPress={() => navigation.navigate('Cinema1')}>
               <Img7 style={styles.img5} />
               <View style={styles.title3}>
                 <Text style={styles.textTitle3}>CGV Cinemas Grand Kawanua</Text>
               </View>
-            </View>
+            </TouchableOpacity>
             <View style={styles.wrapImg6}>
               <Img8 style={styles.img6} />
               <View style={styles.title4}>
@@ -182,6 +216,26 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 20,
     marginRight: 20,
+  },
+  mov1: {
+    marginTop: 10,
+    marginRight: 10,
+    marginLeft: 10,
+    marginBottom: 10,
+  },
+  film1: {
+    height: 168,
+    width: 120,
+    marginHorizontal: 20,
+    marginVertical: 10,
+    borderRadius: 10,
+  },
+  moviePoster: {
+    width: 143,
+    height: 70,
+    borderRadius: 10,
+    marginHorizontal: 10,
+    marginVertical: 10,
   },
   content: {
     backgroundColor: '#121111',
@@ -274,6 +328,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 9,
     marginBottom: 10,
+    height: 100,
   },
   wrapImg3: {
     backgroundColor: '#200926',
