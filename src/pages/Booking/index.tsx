@@ -5,6 +5,7 @@ import {
   View,
   ImageBackground,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import {
   Back,
@@ -19,19 +20,28 @@ import {
 import {Backgroundd, Img1, Trailer} from '../../assets/images';
 import {Button, Textinput} from '../../components';
 import {DarkTheme} from '@react-navigation/native';
+import Calendar from 'react-native-calendars/src/calendar';
 
 const Booking = ({navigation}) => {
+  const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
-  const [selectedDate, setSelectedDate] = useState('');
 
   const handleTimePress = time => {
     setSelectedTime(time);
   };
 
-  const handleDatePress = date => {
+  const handleDayPress = date => {
     setSelectedDate(date);
   };
 
+  const handleBookTicket = () => {
+    if (selectedDate && selectedTime) {
+      navigation.navigate('BookingSuccess', {selectedDate, selectedTime});
+    } else {
+      // Handle case when date or time is not selected
+      console.log('Please select date and time.');
+    }
+  };
   return (
     <View style={styles.container}>
       <ImageBackground source={Backgroundd} style={styles.backgroundFoto}>
@@ -240,64 +250,24 @@ const Booking = ({navigation}) => {
           <Text style={styles.textLoct}>Location</Text>
           <Textinput placeholder="Cinepolis Lippo Plaza Kairagi" />
         </View>
-        <View style={styles.contentWrapper}>
-          <Text style={styles.dateTitle}>May 2023</Text>
-          <View style={styles.dates}>
-            <TouchableOpacity onPress={() => handleDatePress('14 Mon')}>
-              <Text
-                style={[
-                  styles.date,
-                  selectedDate === '14 Mon' && styles.selectedDate,
-                ]}>
-                14 Mon
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleDatePress('15 Tue')}>
-              <Text
-                style={[
-                  styles.date,
-                  selectedDate === '15 Tue' && styles.selectedDate,
-                ]}>
-                15 Tue
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleDatePress('16 Wed')}>
-              <Text
-                style={[
-                  styles.date,
-                  selectedDate === '16 Wed' && styles.selectedDate,
-                ]}>
-                16 Wed
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleDatePress('17 Thu')}>
-              <Text
-                style={[
-                  styles.date,
-                  selectedDate === '17 Thu' && styles.selectedDate,
-                ]}>
-                17 Thu
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleDatePress('18 Fri')}>
-              <Text
-                style={[
-                  styles.date,
-                  selectedDate === '18 Fri' && styles.selectedDate,
-                ]}>
-                18 Fri
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleDatePress('19 Sat')}>
-              <Text
-                style={[
-                  styles.date,
-                  selectedDate === '19 Sat' && styles.selectedDate,
-                ]}>
-                19 Sat
-              </Text>
-            </TouchableOpacity>
-          </View>
+        <ScrollView style={styles.contentWrapper}>
+          <Calendar
+            style={{
+              backgroundColor: '#6A008436',
+              marginVertical: 10,
+              borderRadius: 10,
+              elevation: 4,
+              margin: 40,
+              alignContent: 'center',
+            }}
+            theme={{
+              calendarBackground: '#6A008436', // Mengubah warna latar belakang
+              selectedDayBackgroundColor: 'red', // Mengubah warna saat menekan tanggal
+              todayTextColor: 'blue', // Opsional, untuk memberi warna hari ini
+              dayTextColor: '#FFFFFF', // Mengubah warna teks tanggal
+            }}
+            onDayPress={handleDayPress}
+          />
           <View style={styles.clock}>
             <TouchableOpacity
               style={[
@@ -370,16 +340,16 @@ const Booking = ({navigation}) => {
               </Text>
             </TouchableOpacity>
           </View>
+        </ScrollView>
+        <ScrollView>
           <Text style={styles.seats}> 3 Seats</Text>
           <View style={styles.contentWrapper2}>
             <Text style={styles.total}> $ 85</Text>
-            <TouchableOpacity
-              style={styles.buy}
-              onPress={() => navigation.navigate('PaymentMethod')}>
+            <TouchableOpacity style={styles.buy} onPress={handleBookTicket}>
               <Text style={styles.textBuy}>Buy Ticket</Text>
             </TouchableOpacity>
           </View>
-        </View>
+        </ScrollView>
       </View>
     </View>
   );
