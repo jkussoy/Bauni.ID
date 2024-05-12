@@ -21,15 +21,15 @@ import {Background3} from '../../assets/images';
 import {Google, Googlee} from '../../assets/icon';
 
 // import statusCodes along with GoogleSignin
-import {
-  GoogleSignin,
-  statusCodes,
-} from '@react-native-google-signin/google-signin';
+// import {
+//   GoogleSignin,
+//   statusCodes,
+// } from '@react-native-google-signin/google-signin';
 
-GoogleSignin.configure({
-  webClientId:
-    '825317241990-mhor2l5ejgrskj409iahfl6laiamjml6.apps.googleusercontent.com', // client ID of type WEB for your server. Required to get the idToken on the user object, and for offline access.
-});
+// GoogleSignin.configure({
+//   webClientId:
+//     '825317241990-mhor2l5ejgrskj409iahfl6laiamjml6.apps.googleusercontent.com', // client ID of type WEB for your server. Required to get the idToken on the user object, and for offline access.
+// });
 // Somewhere in your code
 
 const SignIn = ({navigation}) => {
@@ -84,23 +84,23 @@ const SignIn = ({navigation}) => {
   //       }
   //     }
   //   };
-  const signInGoogle = async () => {
-    try {
-      await GoogleSignin.hasPlayServices();
-      const {idToken} = await GoogleSignin.signIn();
-    } catch (error) {
-      console.log('got error: ', error.message);
-      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        // user cancelled the login flow
-      } else if (error.code === statusCodes.IN_PROGRESS) {
-        // operation (e.g. sign in) is in progress already
-      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        // play services not available or outdated
-      } else {
-        // some other error happened
-      }
-    }
-  };
+  // const signInGoogle = async () => {
+  //   try {
+  //     await GoogleSignin.hasPlayServices();
+  //     const {idToken} = await GoogleSignin.signIn();
+  //   } catch (error) {
+  //     console.log('got error: ', error.message);
+  //     if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+  //       // user cancelled the login flow
+  //     } else if (error.code === statusCodes.IN_PROGRESS) {
+  //       // operation (e.g. sign in) is in progress already
+  //     } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+  //       // play services not available or outdated
+  //     } else {
+  //       // some other error happened
+  //     }
+  //   }
+  // };
 
   return (
     <View style={styles.container}>
@@ -153,7 +153,7 @@ const SignIn = ({navigation}) => {
         </View>
         <Gap height={59} />
         <View style={styles.buttonsContainer}>
-          <TouchableOpacity style={styles.socialButton} onPress={signInGoogle}>
+          <TouchableOpacity style={styles.socialButton}>
             <Image source={Googlee} style={styles.icon} />
             <Text style={styles.buttonText}>Google</Text>
           </TouchableOpacity>

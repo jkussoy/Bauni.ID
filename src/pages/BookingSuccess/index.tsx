@@ -1,16 +1,26 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
-import {Backgroundd, Img2, Img4} from '../../assets/images';
+import {Backgroundd, Drink2, Img2, Img4, SuperMario} from '../../assets/images';
 import {Barcode, LogoWhite, Verif} from '../../assets/icon';
 
-const BookingSuccess = ({navigation, route}) => {
-  const {selectedDate, selectedTime} = route.params;
+const BookingSuccess3 = ({navigation, route}) => {
+  const {menuItems, total} = route.params;
+  const [currentDate, setCurrentDate] = useState('');
+  const [currentTime, setCurrentTime] = useState('');
 
-  const today = new Date();
-  const formattedDate = `${today.getDate()}-${
-    today.getMonth() + 1
-  }-${today.getFullYear()}`;
-
+  useEffect(() => {
+    const date = new Date();
+    const formattedDate = `${date.toLocaleDateString('en-US', {
+      month: 'long',
+      day: '2-digit',
+      year: 'numeric',
+    })}`;
+    const formattedTime = `${date.getHours()}:${
+      (date.getMinutes() < 10 ? '0' : '') + date.getMinutes()
+    } ${date.getHours() >= 12 ? 'PM' : 'AM'}`;
+    setCurrentDate(formattedDate);
+    setCurrentTime(formattedTime);
+  }, []);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -26,34 +36,37 @@ const BookingSuccess = ({navigation, route}) => {
         </Text>
         <View style={styles.bookingDetailsContainer}>
           <Text style={styles.detailLabel}>Invoice Date</Text>
-          <Text style={styles.detailLabel}>Booking ID</Text>
+          <Text style={styles.detailLabel}>Payment ID</Text>
         </View>
         <View style={styles.bookingDetailsContainer}>
-          <Text style={styles.detailValue}>{formattedDate}</Text>
-          <Text style={styles.detailValue}>SHCH7</Text>
+          <Text style={styles.detailValue}>{currentDate}</Text>
+          <Text style={styles.detailValue}>AWSKV</Text>
         </View>
       </View>
       <View style={styles.orderSummaryContainer}>
         <Text style={styles.orderSummaryTitle}>Your Order Summary</Text>
         <View style={styles.movieDetailsContainer}>
-          <Image source={Backgroundd} style={styles.moviePoster} />
           <View style={styles.movieDetailsTextContainer}>
-            <Text style={styles.title}>Movie Title</Text>
             <Text style={styles.movieTitle}>
-              Shang-Chi and The Legend of The Ten Rings
+              Order:{' '}
+              {menuItems.map((menuItem, index) => (
+                <Text key={index}>
+                  {menuItem.name} {index !== menuItems.length - 1 ? ', ' : ''}
+                </Text>
+              ))}
             </Text>
             <View style={styles.date}>
               <Text style={styles.textDate}>Date: </Text>
-              <Text style={styles.movieDate}>{selectedDate.dateString}</Text>
+              <Text style={styles.movieDate}>{currentDate}</Text>
             </View>
             <View style={styles.time}>
               <Text style={styles.textTime}>Time: </Text>
-              <Text style={styles.movieTime}>{selectedTime}</Text>
+              <Text style={styles.movieTime}>{currentTime}</Text>
             </View>
             <View style={styles.place}>
               <Text style={styles.textLocation}>Location: </Text>
               <Text style={styles.movieLocation}>
-                Cinepoilis Ippen Mala Kutay
+                CGV Cinemas Grand Kawanua
               </Text>
             </View>
           </View>
@@ -171,7 +184,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 13,
     marginBottom: 8,
-    marginLeft: 25,
+    marginLeft: 15,
     marginRight: 110,
     marginTop: -30,
   },
@@ -252,4 +265,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BookingSuccess;
+export default BookingSuccess3;
