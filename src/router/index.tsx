@@ -8,27 +8,27 @@ import {
   Register,
   ForgotPass,
   SuccessForgotPass,
-  // DetailMovies,
+  DetailMovies,
   Booking,
   PaymentMethod,
   BookingSuccess,
-  // Newest,
-  // Saved,
-  // Snack,
+  Newest,
+  Saved,
+  Snack,
   Chart,
   MyAccount,
   NowPlaying,
   Trending,
   NearestCinema,
-  // Foods,
-  // Drinks,
-  // Packets,
-  // DetailMovies2,
-  // PaymentMethod2,
-  // Booking2,
-  // BookingSuccess2,
-  // BookingSuccess3,
-  // PaymentMethod3,
+  Foods,
+  Drinks,
+  Packets,
+  DetailMovies2,
+  PaymentMethod2,
+  Booking2,
+  BookingSuccess2,
+  BookingSuccess3,
+  PaymentMethod3,
 } from '../pages';
 
 const Stack = createNativeStackNavigator();
@@ -70,11 +70,11 @@ const index = () => {
         component={SuccessForgotPass}
         options={{headerShown: false}}
       />
-      {/* <Stack.Screen
+      <Stack.Screen
         name="DetailMovies"
         component={DetailMovies}
         options={{headerShown: false}}
-      /> */}
+      /> 
       <Stack.Screen
         name="Booking"
         component={Booking}
@@ -90,12 +90,12 @@ const index = () => {
         component={BookingSuccess}
         options={{headerShown: false}}
       />
-      {/* <Stack.Screen
+      <Stack.Screen
         name="Newest"
         component={Newest}
         options={{headerShown: false}}
-      /> */}
-      {/* <Stack.Screen
+      /> 
+      <Stack.Screen
         name="Saved"
         component={Saved}
         options={{headerShown: false}}
@@ -104,7 +104,7 @@ const index = () => {
         name="Snack"
         component={Snack}
         options={{headerShown: false}}
-      /> */}
+      /> 
       <Stack.Screen
         name="Chart"
         component={Chart}
@@ -130,7 +130,7 @@ const index = () => {
         component={NearestCinema}
         options={{headerShown: false}}
       />
-      {/* <Stack.Screen
+       <Stack.Screen
         name="Foods"
         component={Foods}
         options={{headerShown: false}}
@@ -174,7 +174,7 @@ const index = () => {
         name="PaymentMethod3"
         component={PaymentMethod3}
         options={{headerShown: false}}
-      /> */}
+      />
     </Stack.Navigator>
   );
 };
