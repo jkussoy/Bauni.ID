@@ -3,11 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {
   SplashScreen,
   SignIn,
-  SignUp,
-  SignUpPhoto,
   Home,
-  CashOnBank,
-  CashOnHand,
   NewScreen,
   Register,
   ForgotPass,
@@ -20,8 +16,6 @@ import {
   Saved,
   Snack,
   Chart,
-  Profile,
-  Profilee,
   MyAccount,
   NowPlaying,
   Trending,
@@ -80,7 +74,7 @@ const index = () => {
         name="DetailMovies"
         component={DetailMovies}
         options={{headerShown: false}}
-      />
+      /> 
       <Stack.Screen
         name="Booking"
         component={Booking}
@@ -100,7 +94,7 @@ const index = () => {
         name="Newest"
         component={Newest}
         options={{headerShown: false}}
-      />
+      /> 
       <Stack.Screen
         name="Saved"
         component={Saved}
@@ -110,7 +104,7 @@ const index = () => {
         name="Snack"
         component={Snack}
         options={{headerShown: false}}
-      />
+      /> 
       <Stack.Screen
         name="Chart"
         component={Chart}
@@ -136,7 +130,7 @@ const index = () => {
         component={NearestCinema}
         options={{headerShown: false}}
       />
-      <Stack.Screen
+       <Stack.Screen
         name="Foods"
         component={Foods}
         options={{headerShown: false}}
